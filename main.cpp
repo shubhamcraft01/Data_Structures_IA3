@@ -97,6 +97,68 @@ public:
     int size() {
         return count;
     }
+    // Display the complete table and its statistics
+    void display() {
+        int empty = 0;
+        int longest = 0;
+ 
+        cout << "\nFinal hash table (m = 23)\n";
+ 
+        for (int i = 0; i < 23; i++) {
+            cout << "[" << i << "] ";
+            Node* temp = bucket[i];
+            int length = 0;
+ 
+            while (temp != NULL) {
+                cout << temp->key;
+                temp = temp->next;
+                length++;
+ 
+                if (temp != NULL) {
+                    cout << " -> ";
+                }
+            }
+ 
+            if (length == 0) {
+                cout << "(empty)";
+                empty++;
+            }
+ 
+            if (length > longest) {
+                longest = length;
+            }
+ 
+            cout << endl;
+        }
+ 
+        cout << "Entries = " << count
+             << ", buckets = 23"
+             << ", empty buckets = " << empty
+             << ", longest chain = " << longest << endl;
+ 
+        int load = (count * 100 + 11) / 23;
+        cout << "Load factor = " << count << "/23 = "
+             << load / 100 << ".";
+ 
+        if (load % 100 < 10) {
+            cout << "0";
+        }
+ 
+        cout << load % 100 << endl;
+    }
+ 
+    // Release all dynamically allocated linked-list nodes
+    ~HashTable() {
+        for (int i = 0; i < 23; i++) {
+            Node* temp = bucket[i];
+ 
+            while (temp != NULL) {
+                Node* nextNode = temp->next;
+                delete temp;
+                temp = nextNode;
+            }
+        }
+    }
 };
  
 int main() {
@@ -112,10 +174,18 @@ int main() {
  
     HashTable ht;
  
+    cout << "PRN 202501100175 | S = 175"
+         << " | cold-drink flavours"
+         << " | mid-square"
+         << " | separate chaining"
+         << " | m = 23\n\n";
+ 
     for (int i = 0; i < 20; i++) {
         int key = (S + 13 * i) % 100;
         ht.insert(key, names[i]);
     }
+ 
+    ht.display();
  
     cout << "\nSearch tests\n";
     int tests[3] = {53, 96, 42};
