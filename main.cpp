@@ -1,3 +1,7 @@
+/*
+ * PRN : 202501100175          (seed S = last 4 digits = 0175)
+ * 75, 88, 1, 14, 27, 40, 53, 66, 79, 92, 5, 18, 31, 44, 57, 70, 83, 96, 9, 22
+ */
 #include <iostream>
 #include <string>
 using namespace std;
