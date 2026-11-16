@@ -38,13 +38,23 @@ public:
         return middle % 23;
     }
  
-    // First version: insert new nodes at the head of the chain
+    // Improved insertion: append new nodes at the end of the chain
     void insert(int key, string name) {
         int index = hashFunction(key);
         Node* newNode = new Node(key, name);
  
-        newNode->next = bucket[index];
-        bucket[index] = newNode;
+        if (bucket[index] == NULL) {
+            bucket[index] = newNode;
+        }
+        else {
+            Node* temp = bucket[index];
+ 
+            while (temp->next != NULL) {
+                temp = temp->next;
+            }
+ 
+            temp->next = newNode;
+        }
  
         cout << "Inserted key " << key << " (" << name
              << ") -> bucket " << index << endl;
