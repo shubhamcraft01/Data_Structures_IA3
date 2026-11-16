@@ -38,6 +38,17 @@ public:
         return middle % 23;
     }
  
+    // First version: insert new nodes at the head of the chain
+    void insert(int key, string name) {
+        int index = hashFunction(key);
+        Node* newNode = new Node(key, name);
+ 
+        newNode->next = bucket[index];
+        bucket[index] = newNode;
+ 
+        cout << "Inserted key " << key << " (" << name
+             << ") -> bucket " << index << endl;
+    }
 };
  
 int main() {
@@ -53,10 +64,9 @@ int main() {
  
     HashTable ht;
  
-    cout << "Key and calculated bucket" << endl;
     for (int i = 0; i < 20; i++) {
         int key = (S + 13 * i) % 100;
-        cout << key << " -> bucket " << ht.hashFunction(key) << endl;
+        ht.insert(key, names[i]);
     }
  
     return 0;
