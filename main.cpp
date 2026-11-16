@@ -24,6 +24,20 @@ public:
             bucket[i] = NULL;
         }
     }
+ 
+    // Mid-square: square, pad to four digits, take middle two digits
+    int hashFunction(int key) {
+        int square = key * key;
+        string s = to_string(square);
+ 
+        while (s.length() < 4) {
+            s = "0" + s;
+        }
+ 
+        int middle = (s[1] - '0') * 10 + (s[2] - '0');
+        return middle % 23;
+    }
+ 
 };
  
 int main() {
@@ -39,10 +53,10 @@ int main() {
  
     HashTable ht;
  
-    cout << "Personalized cold-drink dataset" << endl;
+    cout << "Key and calculated bucket" << endl;
     for (int i = 0; i < 20; i++) {
         int key = (S + 13 * i) % 100;
-        cout << key << " - " << names[i] << endl;
+        cout << key << " -> bucket " << ht.hashFunction(key) << endl;
     }
  
     return 0;
